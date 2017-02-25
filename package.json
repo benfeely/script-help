@@ -1,0 +1,54 @@
+{
+  "name": "npm-run-help",
+  "version": "1.0.0",
+  "description": "Outputs entire or filtered npm scripts list with customizable documentation to the console (inspired by http://docopt.org).",
+  "main": "lib/npm-run-help.js",
+  "typings": "lib/npm-run-help.d.ts",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "build": "tsc -p src && npm run webpack",
+    "webpack": "webpack -p",
+    "test": "npm run build && tape test/*.js | faucet",
+    "lint:js": "eslint ./test",
+    "lint:ts": "tslint ./src/*.ts",
+    "lint": "npm run lint:ts && npm run lint:js",
+    "prepublish": "npm run build && npm run build-docs",
+    "test-travis": "npm run build && npm run lint && istanbul cover node_modules/tape/bin/tape test/*.js",
+    "coverage": "npm run build && istanbul cover tape test/*.js && cat ./coverage/lcov.info|coveralls",
+    "build-docs": "npm run build && documentation readme lib/npm-run-help.js --github --section API"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benfeely/npm-run-help.git"
+  },
+  "keywords": [
+    "npm",
+    "run",
+    "help",
+    "scripts"
+  ],
+  "author": "Ben Feely <http://benfeely.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benfeely/npm-run-help/issues"
+  },
+  "homepage": "https://github.com/benfeely/npm-run-help#readme",
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "coveralls": "^2.11.16",
+    "documentation": "^4.0.0-beta.18",
+    "eslint": "^3.16.1",
+    "faucet": "0.0.1",
+    "istanbul": "^0.4.5",
+    "tape": "^4.6.3",
+    "tslint": "^4.4.2",
+    "tslint-eslint-rules": "^3.4.0",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3"
+  }
+}
