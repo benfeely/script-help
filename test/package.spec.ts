@@ -7,7 +7,12 @@ describe("Package", () => {
     const packageJsonScriptCount = Object.keys(packageJson.scripts).length;
     const pkg = new Package(packageJson);
 
-    it(`should have ${packageJsonScriptCount} scripts`, () => {
+    it(`should instantiate with scripts from local package.json`, () => {
+        const keys = Object.keys(new Package()).length;
+        keys.should.have.above(0);
+    });
+
+    it(`should instantiate with ${packageJsonScriptCount} scripts from mock package.json`, () => {
         const keys = Object.keys(pkg.scripts);
         keys.should.have.lengthOf(packageJsonScriptCount);
     });

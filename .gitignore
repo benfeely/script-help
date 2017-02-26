@@ -1,6 +1,7 @@
 .DS_Store
 .sass-cache
 .tscache/
+.nyc_output/
 /build/
 /coverage/
 /docs/site/
@@ -11,7 +12,7 @@
 node_modules/
 
 tscommand*.txt
-npm-debug.log
+npm-debug.log*
 script-help.umd.js
 script-help-*.tgz
 *.log

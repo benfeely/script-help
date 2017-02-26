@@ -1,7 +1,4 @@
-import findup = require("findup-sync");
-import * as fs from "fs";
-
-import { IPackageJson, Package } from "./package";
+import { Package } from "./package";
 
 export interface IRunnerOptions {
     /**
@@ -27,7 +24,7 @@ export class Runner {
 
         try {
             this.outputStream.write("Starting script help...");
-            const pkg = new Package(this.getPackageJson());
+            const pkg = new Package();
             const scriptKeys = pkg.getScriptKeys(this.options.filter, this.options.key);
 
             console.log("Script Keys: ", JSON.stringify(scriptKeys));
@@ -36,23 +33,4 @@ export class Runner {
             onComplete(1);
         }
     }
-
-    private getPackageJson(): IPackageJson {
-        // Find closest package.json file (safer than cwd + package.json).
-        let filePath = findup("package.json", { nocase: true });
-
-        if (filePath == null || !fs.existsSync(filePath)) {
-            throw new Error(`Unable to locate "package.json" file.`)
-        }
-
-        return require(filePath);
-    }
-
-    // private getScripts() {
-
-    // }
-
-    // private getScriptHelp() {
-
-    // }
 }
