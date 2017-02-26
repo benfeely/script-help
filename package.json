@@ -2,27 +2,12 @@
   "name": "script-help",
   "version": "1.0.0",
   "description": "Outputs entire or filtered npm scripts list with customizable documentation to the console (inspired by http://docopt.org).",
-  "bin": {
-    "script-help": "./bin/script-help"
+  "author": "Ben Feely <http://benfeely.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benfeely/script-help/issues"
   },
-  "main": "lib/script-help.js",
-  "typings": "lib/script-help.d.ts",
-  "files": [
-    "bin/",
-    "lib/"
-  ],
-  "scripts": {
-    "build": "tsc -p src && npm run webpack",
-    "webpack": "webpack -p",
-    "test": "npm run build && tape test/*.js | faucet",
-    "lint:js": "eslint ./test",
-    "lint:ts": "tslint ./src/*.ts",
-    "lint": "npm run lint:ts && npm run lint:js",
-    "prepublish": "npm run build && npm run build-docs",
-    "test-travis": "npm run build && npm run lint && istanbul cover node_modules/tape/bin/tape test/*.js",
-    "coverage": "npm run build && istanbul cover tape test/*.js && cat ./coverage/lcov.info|coveralls",
-    "build-docs": "npm run build && documentation readme lib/script-help.js --github --section API"
-  },
+  "homepage": "https://github.com/benfeely/script-help#readme",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/benfeely/script-help.git"
@@ -33,29 +18,55 @@
     "help",
     "scripts"
   ],
-  "author": "Ben Feely <http://benfeely.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/benfeely/script-help/issues"
+  "bin": {
+    "script-help": "./bin/script-help"
   },
-  "homepage": "https://github.com/benfeely/script-help#readme",
-  "devDependencies": {
-    "@types/node": "^6.0.56",
-    "babel-eslint": "^7.1.1",
-    "coveralls": "^2.11.16",
-    "documentation": "^4.0.0-beta.18",
-    "eslint": "^3.16.1",
-    "faucet": "0.0.1",
-    "istanbul": "^0.4.5",
-    "tape": "^4.6.3",
-    "tslint": "^4.4.2",
-    "tslint-eslint-rules": "^3.4.0",
-    "typescript": "^2.2.1",
-    "webpack": "^2.2.1"
+  "main": "lib/script-help.js",
+  "typings": "lib/script-help.d.ts",
+  "files": [
+    "bin/",
+    "lib/"
+  ],
+  "scripts": {
+    "build": "npm run compile:core && npm run webpack",
+    "clean": "npm-run-all -p clean:core clean:test",
+    "clean:core": "rimraf lib",
+    "clean:test": "rimraf build && rimraf test/config/node_modules",
+    "compile": "npm-run-all -p compile:core compile:test -s",
+    "compile:core": "tsc -p src",
+    "compile:test": "tsc -p test && copyfiles test/config/*.json build",
+    "docs": "npm run build && documentation readme lib/script-help.js --github --section API",
+    "lint": "npm-run-all -p lint:core lint:test lint:from-bin",
+    "lint:core": "tslint \"src/**/*.ts\"",
+    "lint:test": "tslint \"test/**/*.ts\" -e \"test/**/*.test.ts\"",
+    "lint:from-bin": "node bin/tslint \"{src,test}/**/*.ts\" -e \"test/**/*.test.ts\"",
+    "prepublish": "npm run build && npm run docs",
+    "test": "npm run compile && mocha --reporter spec --colors \"build/test/**/*.spec.js\" build/test/assert.js",
+    "test:travis": "npm run build && npm run lint && istanbul cover node_modules/tape/bin/tape test/*.js",
+    "verify": "npm-run-all clean compile lint test docs",
+    "webpack": "webpack -p"
   },
   "dependencies": {
     "chalk": "^1.1.3",
-    "pkg-up": "^1.0.0",
+    "copy": "^0.3.0",
+    "copyfiles": "^1.2.0",
+    "findup-sync": "~0.3.0",
     "yargs": "^6.6.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/chalk": "^0.4.31",
+    "@types/findup-sync": "^0.3.29",
+    "@types/mocha": "^2.2.35",
+    "@types/node": "^6.0.56",
+    "@types/yargs": "^6.6.0",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0",
+    "npm-run-all": "^3.1.0",
+    "rimraf": "^2.5.4",
+    "tslint": "^4.4.2",
+    "documentation": "^4.0.0-beta.18",
+    "typescript": "^2.2.1",
+    "webpack": "^2.2.1"
   }
 }

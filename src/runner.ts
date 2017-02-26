@@ -1,3 +1,6 @@
+import findup = require("findup-sync");
+import * as fs from "fs";
+
 import { IPackageJson, Package } from "./package";
 
 export interface IRunnerOptions {
@@ -11,7 +14,6 @@ export interface IRunnerOptions {
 
 export class Runner {
     public static VERSION = "1.0.0";
-    public readonly pkgUp = require('pkg-up');
 
     constructor(private options: IRunnerOptions,
                 private outputStream: NodeJS.WritableStream) { }
@@ -37,14 +39,20 @@ export class Runner {
 
     private getPackageJson(): IPackageJson {
         // Find closest package.json file (safer than cwd + package.json).
-        return require(this.pkgUp.sync());
+        let filePath = findup("package.json", { nocase: true });
+
+        if (filePath == null || !fs.existsSync(filePath)) {
+            throw new Error(`Unable to locate "package.json" file.`)
+        }
+
+        return require(filePath);
     }
 
-    private getScripts() {
+    // private getScripts() {
 
-    }
+    // }
 
-    private getScriptHelp() {
+    // private getScriptHelp() {
 
-    }
+    // }
 }
