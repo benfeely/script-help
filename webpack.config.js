@@ -1,12 +1,12 @@
 var webpack = require('webpack');
 
 module.exports = {
-    entry: './lib/npm-run-help.js',
+    entry: './lib/index.js',
     output: {
         libraryTarget: 'umd',
-        library: 'npmRunHelp',
+        library: 'scriptHelp',
         path: __dirname,
-        filename: 'npm-run-help.umd.js'
+        filename: 'script-help.umd.js'
     },
     resolve: {
         extensions: ['.js'],
