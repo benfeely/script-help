@@ -1,15 +1,16 @@
 {
     "version": "1.8.10",
     "compilerOptions": {
-        "target": "es5",
-        "sourceMap": false,
         "declaration": true,
+        "experimentalDecorators": true,
         "module": "commonjs",
-        "removeComments": false,
-        "outDir": "../lib/",
-        "noImplicitAny": true,
         "moduleResolution": "node",
-        "experimentalDecorators": true
+        "noImplicitAny": true,
+        "outDir": "../lib/",
+        "removeComments": false,
+        "sourceMap": false,
+        "strictNullChecks": false,
+        "target": "es5"
     },
     "exclude": [
         "node_modules"

@@ -18,5 +18,6 @@ module.exports = {
                 warnings: false
             }
         })
-    ]
+    ],
+    target: 'node'
 };

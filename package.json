@@ -31,7 +31,7 @@
     "build": "npm run compile:core && npm run webpack",
     "clean": "npm-run-all -p clean:core clean:test",
     "clean:core": "rimraf lib",
-    "clean:test": "rimraf build && rimraf test/config/node_modules",
+    "clean:test": "rimraf build",
     "compile": "npm-run-all -p compile:core compile:test -s",
     "compile:core": "tsc -p src",
     "compile:test": "tsc -p test && copyfiles test/config/*.json build",

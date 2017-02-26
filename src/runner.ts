@@ -10,14 +10,14 @@ export interface IRunnerOptions {
 }
 
 export class Runner {
-    public static VERSION = "1.0.0";
-
     constructor(private options: IRunnerOptions,
                 private outputStream: NodeJS.WritableStream) { }
 
     public run(onComplete: (status: number) => void) {
         if (this.options.version) {
-            this.outputStream.write(Runner.VERSION + "\n");
+            const scriptHelpPkgJson = Package.getPackageJson(process.mainModule.filename);
+            const scriptHelpPkg = new Package(scriptHelpPkgJson);
+            this.outputStream.write(scriptHelpPkg.version + "\n");
             onComplete(0);
             return;
         }
