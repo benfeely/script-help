@@ -2,12 +2,14 @@ import { Package } from "./package";
 import { Help } from "./help";
 
 export interface IRunnerOptions {
-    /**
-     * Whether to show the current TSLint version.
-     */
     version?: boolean;
     filter?: string;
     key?: string;
+}
+
+export enum ExitStatus {
+    Success,
+    Failure
 }
 
 export class Runner {
@@ -19,7 +21,7 @@ export class Runner {
             const scriptHelpPkgJson = Package.getPackageJson(process.mainModule.filename);
             const scriptHelpPkg = new Package(scriptHelpPkgJson);
             this.outputStream.write(scriptHelpPkg.version + "\n");
-            onComplete(0);
+            onComplete(ExitStatus.Success);
             return;
         }
 
@@ -33,11 +35,13 @@ export class Runner {
                 pkg.setScriptKeys(this.options.filter, this.options.key);
             }
 
-            new Help(pkg, this.outputStream).write();
+            const help = new Help(pkg, this.outputStream);
+            help.write();
 
+            onComplete(ExitStatus.Success);
         } catch (error) {
-            console.error(error.message);
-            onComplete(1);
+            this.outputStream.write(error.message);
+            onComplete(ExitStatus.Failure);
         }
     }
 }
