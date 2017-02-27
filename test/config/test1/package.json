@@ -13,7 +13,7 @@
       "description": "Run .spec files in Karma",
       "usage": [
         {
-          "example": "npm run test",
+          "use": "npm run test",
           "note": "Basic usage..."
         },
         "npm run test -- --folder nav",
@@ -22,12 +22,22 @@
       "options": [
         {
           "option": "--[folder | f] FOLDER_PATH",
-          "note": "Restrict spec's to those within the FOLDER_PATH. The path shouldberelativetotherepositoryroot(whereyouruncommonlyrunthenpmcommand)orto'./src'."
+          "note": "Restrict spec's to those within the FOLDER_PATH. The path should be relative to the repository root (where you commonly run the npm command) or to \"./src\"."
         },
         {
           "option": "--[noBail | nb]",
           "note": "Karma will not bail (halt watch) when there is a compilation error."
         }
+      ],
+      "examples": [
+        {
+          "example": "npm run test nav",
+          "note": "Tests will only be run for *.spec within the nav folder."
+        }
+      ],
+      "tips": [
+        "First tip.",
+        "Second tip."
       ]
     }
   },

@@ -149,29 +149,58 @@ export class Help {
                 ui.div();
             }
 
-            ui.div(`Usage:`);
-            let w = Math.max(... scriptHelp.usage.map(use => typeof use === "string" ? use.length : use.example.length)) + 6;
-            scriptHelp.usage.forEach(use => {
-                ui.div(
-                    { text: chalk.yellow.dim(typeof use === "string" ? use : use.example),
-                    padding: [0, 0, 0, 4],
-                    width: w + 4 },
-                    { text: chalk.white(typeof use === "string" ? "" : use.note) }
-                );
-                ui.div();
-            });
+            if (scriptHelp.usage && scriptHelp.usage.length) {
+                ui.div(`Usage:`);
+                const w = Math.max(... scriptHelp.usage.map(use => typeof use === "string" ? use.length : use.use.length)) + 6;
+                scriptHelp.usage.forEach(use => {
+                    ui.div(
+                        { text: chalk.yellow.dim(typeof use === "string" ? use : use.use),
+                        padding: [0, 0, 0, 4],
+                        width: w + 4 },
+                        { text: chalk.white(typeof use === "string" ? "" : use.note) }
+                    );
+                    ui.div();
+                });
+            }
 
-            ui.div(`Options:`);
-            w = Math.max(... scriptHelp.options.map(opt => opt.option.length)) + 6;
-            scriptHelp.options.forEach(opt => {
-                ui.div(
-                    { text: chalk.yellow.dim(opt.option),
-                    padding: [0, 0, 0, 4],
-                    width: w },
-                    { text: chalk.white(opt.note) }
-                );
-                ui.div();
-            });
+            if (scriptHelp.options && scriptHelp.options.length) {
+                ui.div(`Options:`);
+                const w = Math.max(... scriptHelp.options.map(opt => typeof opt === "string" ? opt.length : opt.option.length)) + 6;
+                scriptHelp.options.forEach(opt => {
+                    ui.div(
+                        { text: chalk.yellow.dim(typeof opt === "string" ? opt : opt.option),
+                        padding: [0, 0, 0, 4],
+                        width: w },
+                        { text: chalk.white(typeof opt === "string" ? opt : opt.note) }
+                    );
+                    ui.div();
+                });
+            }
+
+            if (scriptHelp.examples && scriptHelp.examples.length) {
+                ui.div(`Examples:`);
+                const w = Math.max(... scriptHelp.examples.map(ex => typeof ex === "string" ? ex.length : ex.example.length)) + 6;
+                scriptHelp.examples.forEach(ex => {
+                    ui.div(
+                        { text: chalk.yellow.dim(typeof ex === "string" ? ex : ex.example),
+                        padding: [0, 0, 0, 4],
+                        width: w },
+                        { text: chalk.white(typeof ex === "string" ? ex : ex.note) }
+                    );
+                    ui.div();
+                });
+            }
+
+            if (scriptHelp.tips && scriptHelp.tips.length) {
+                ui.div(`Tips:`);
+                scriptHelp.tips.forEach(tip => {
+                    ui.div(
+                        { text: tip,
+                        padding: [0, 0, 0, 4] }
+                    );
+                    ui.div();
+                });
+            }
         }
 
         this.out(ui);

@@ -4,7 +4,7 @@
     "description": "Run .spec files in Karma",
     "usage": [
       {
-        "example": "npm run test",
+        "use": "npm run test",
         "note": "Basic usage..."
       },
       "npm run test -- --folder nav",

@@ -15,8 +15,10 @@ export interface IScriptHelpJson {
 export interface IScriptHelp {
     name?: string;
     description?: string;
-    usage?: [{ example: string, note: string } | string];
-    options?: [{ option: string, note: string }];
+    usage?: [{ use: string, note: string } | string];
+    options?: [{ option: string, note: string } | string];
+    examples?: [{ example: string, note: string } | string];
+    tips?: [string];
 }
 
 export class Package implements IPackageJson {
