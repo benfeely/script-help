@@ -37,6 +37,7 @@
     "compile:test": "tsc -p test && copyfiles test/config/**/*.json build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "npm run build && documentation readme lib/script-help.js --github --section API",
+    "help": "npm run compile:core && node ./bin/script-help",
     "lint": "npm-run-all -p lint:core lint:test lint:from-bin",
     "lint:core": "tslint \"src/**/*.ts\"",
     "lint:test": "tslint \"test/**/*.ts\" -e \"test/**/*.test.ts\"",
@@ -45,16 +46,32 @@
     "test": "npm run compile && mocha \"build/test/**/*.spec.js\" build/test/assert.js",
     "test:cover": "npm run compile && nyc mocha \"build/test/**/*.spec.js\" build/test/assert.js",
     "test:travis": "npm run build && npm run lint && istanbul cover node_modules/tape/bin/tape test/*.js",
-    "test:out": "npm run compile:core && node ./bin/script-help",
     "verify": "npm-run-all clean compile lint test docs",
     "webpack": "webpack -p"
   },
   "scriptHelp": {
-    "help-message": "My help message... This should be really helpful!"
+    "help-message": "My help message... This should be really helpful!",
+    "test": {
+      "name": "Test",
+      "description": "Run .spec files in Mocha",
+      "usage": [
+        "npm run test"
+      ],
+      "options": [
+        {
+          "option": "-s",
+          "note": "Silences the \"npm ERR!\" output that comes from NPM."
+        },
+        {
+          "option": "--[noBail | nb]",
+          "note": "Karma will not bail (halt watch) when there is a compilation error."
+        }
+      ]
+    }
   },
   "dependencies": {
     "chalk": "^1.1.3",
-    "columnify": "^1.5.4",
+    "cliui": "^3.2.0",
     "findup-sync": "~0.3.0",
     "yargs": "^6.6.0"
   },

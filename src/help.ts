@@ -1,11 +1,15 @@
-import { Package } from "./package";
+import { Package, IScriptHelp } from "./package";
 import * as chalk from "chalk";
 
 export class Help {
     private readonly helpMessageKey = "help-message";
-    private readonly columnify = require("columnify");
+    private readonly cliUi = require("cliui");
+
     private readonly TAB_WIDTH = 4;
     private readonly MAX_WIDTH = 80;
+
+    // Chalk styles
+    head = chalk.underline;
 
     constructor(private pkg: Package,
                 private outputStream: NodeJS.WritableStream) { }
@@ -15,6 +19,10 @@ export class Help {
 
         if (!this.pkg.isFiltered) {
             this.writeSummary();
+        } else {
+            this.pkg.scriptKeys.forEach(key => {
+                this.writeDetail(key, this.pkg.scripts[key], this.pkg.scriptHelp[key]);
+            });
         }
 
         this.out();
@@ -27,30 +35,79 @@ export class Help {
     }
 
     private writeSummary() {
-        this.out("Running NPM Scripts", 0, chalk.red);
-        this.out("Usage:", 0, chalk.bold);
-        this.out(chalk.yellow("npm run <command>") + " where <command> is one of:", 1);
-        this.out();
-        let opt1 = { showHeaders: false, config: { key: { minWidth: this.TAB_WIDTH - 1 }, value: { maxWidth: this.MAX_WIDTH - this.TAB_WIDTH - 1 } } };
-        this.out(this.columnify({"": this.pkg.scriptKeys.join(", ")}, opt1));
-        this.out();
-        this.out();
-        this.out("Getting Help for Scripts", 0, chalk.red);
-        let opt2 = { showHeaders: false, config: { key: { maxWidth: this.MAX_WIDTH }, value: { maxWidth: 0 } } };
-        this.out(this.columnify({"For a detailed explanation of each <command>, set a filter or specify a specific command.": ""}, opt2));
-        this.out();
-        this.out("Usage:", 0, chalk.bold);
-        this.out("npm run help <options>", 1, chalk.yellow);
-        this.out();
-        this.out("Options:", 0, chalk.bold);
-        this.out(chalk.yellow("-f, --filter") + "\t test", 1);
-        this.out(chalk.yellow("-k, --key") + "\t\t test", 1);
-        this.out(chalk.yellow("-v, --version") + "\t test", 1);
-        this.out();
-        this.out("Examples:", 0, chalk.bold);
-        this.out("npm run help -f buil", 1, chalk.yellow);
-        this.out("npm run help -k test", 1, chalk.yellow);
-        this.out();
+        const ui = this.cliUi({ width: this.MAX_WIDTH });
+
+        ui.div(this.head(`Running NPM Scripts`));
+        ui.div();
+        ui.div(`Usage:`);
+        ui.div(
+            { text: chalk.yellow(`npm run <command>`) + ` where <command> is one of:\n\n` + this.pkg.scriptKeys.join(", "),
+              padding: [0, 0, 0, 4] }
+        );
+        ui.div();
+        ui.div(
+            { text: `Need more help?  Try: ` + chalk.yellow(`npm run help build`) + ` or any other <command>`,
+              padding: [0, 0, 0, 4] }
+        );
+        ui.div();
+        ui.div(this.head(`Getting Help for Scripts`));
+        ui.div();
+        ui.div(`For a detailed explanation of each <command>, set a filter or specify a specific command.`);
+        ui.div();
+        ui.div(`Usage:`);
+        ui.div(
+            { text: chalk.yellow(`npm run help <command>`),
+              padding: [0, 0, 0, 4] }
+        );
+        ui.div(
+            { text: chalk.yellow(`npm run help <options>`),
+              padding: [0, 0, 0, 4] }
+        );
+        ui.div();
+        ui.div(`Options:`);
+        ui.div(
+            { text: chalk.yellow.dim(`<command>\n`) + chalk.yellow.dim(`-f, --filter`),
+              padding: [0, 0, 0, 4],
+              width: 26 },
+            { text: chalk.white(`Show detailed help for each <command> that matches the filter.`) }
+        );
+        ui.div();
+        ui.div(
+            { text: chalk.yellow.dim(`-k, --key`),
+              padding: [0, 0, 0, 4],
+              width: 26 },
+            { text: `Show detailed help for the <command> matching the provided key.` }
+        );
+        ui.div();
+        ui.div(
+            { text: chalk.yellow.dim(`-v, --version`),
+              padding: [0, 0, 0, 4],
+              width: 26 },
+            { text: `Show the version of ScriptHelp that is being used.` }
+        );
+        ui.div();
+        ui.div(`Examples:`);
+        ui.div(
+            { text: chalk.yellow.dim(`npm run help test`),
+              padding: [0, 0, 0, 4],
+              width: 26 },
+            { text: `Preferred` }
+        );
+        ui.div(
+            { text: chalk.yellow.dim(`npm run help -f buil`),
+              padding: [0, 0, 0, 4],
+              width: 26 },
+            { text: `` }
+        );
+        ui.div(
+            { text: chalk.yellow.dim(`npm run help -k test`),
+              padding: [0, 0, 0, 4],
+              width: 26 },
+            { text: `` }
+        );
+        ui.div();
+
+        this.out(ui);
     }
 
     private writeHeader() {
@@ -66,5 +123,57 @@ export class Help {
             this.out(<string>helpMessage);
             this.out();
         }
+    }
+
+    private writeDetail(key: string, script: string, scriptHelp?: IScriptHelp | string) {
+        const ui = this.cliUi({ width: this.MAX_WIDTH });
+
+        // Determine if a scriptHelp object was provided for this script and is valid.
+        if (!scriptHelp || typeof scriptHelp === "string") {
+            ui.div(this.head(`Help for "${key}" Script`));
+            ui.div();
+
+            ui.div(`Usage:`);
+            ui.div(
+                { text: chalk.yellow(`npm run ${key}`),
+                  padding: [0, 0, 0, 4] },
+                { text: script }
+            );
+
+        } else if (typeof scriptHelp !== "string") {
+            ui.div(this.head(`Help for "${scriptHelp.name}" Script`));
+            ui.div();
+
+            if (scriptHelp.description) {
+                ui.div(scriptHelp.description);
+                ui.div();
+            }
+
+            ui.div(`Usage:`);
+            let w = Math.max(... scriptHelp.usage.map(use => typeof use === "string" ? use.length : use.example.length)) + 6;
+            scriptHelp.usage.forEach(use => {
+                ui.div(
+                    { text: chalk.yellow.dim(typeof use === "string" ? use : use.example),
+                    padding: [0, 0, 0, 4],
+                    width: w + 4 },
+                    { text: chalk.white(typeof use === "string" ? "" : use.note) }
+                );
+                ui.div();
+            });
+
+            ui.div(`Options:`);
+            w = Math.max(... scriptHelp.options.map(opt => opt.option.length)) + 6;
+            scriptHelp.options.forEach(opt => {
+                ui.div(
+                    { text: chalk.yellow.dim(opt.option),
+                    padding: [0, 0, 0, 4],
+                    width: w },
+                    { text: chalk.white(opt.note) }
+                );
+                ui.div();
+            });
+        }
+
+        this.out(ui);
     }
 }

@@ -15,7 +15,7 @@ export interface IScriptHelpJson {
 export interface IScriptHelp {
     name?: string;
     description?: string;
-    usage?: [{ example: string, note: string }];
+    usage?: [{ example: string, note: string } | string];
     options?: [{ option: string, note: string }];
 }
 

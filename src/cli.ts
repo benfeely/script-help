@@ -27,5 +27,11 @@ const options: IRunnerOptions = {
     key: argv.k
 };
 
+// Translate the first un-named parameter (if provided) into
+// a key option.
+if (argv._ && argv._.length) {
+    options.key = argv._[0];
+}
+
 new Runner(options, outputStream)
     .run((status: number) => process.exit(status));

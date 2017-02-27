@@ -17,6 +17,6 @@ describe("Help", () => {
 
     it(`should log to console`, () => {
         help.write();
-        outputStream.messages.should.have.lengthOf(2);
+        outputStream.messages.should.have.lengthOf(4);
     });
 });
