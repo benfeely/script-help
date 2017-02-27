@@ -21,8 +21,7 @@ and add a help alias to your `package.json` scripts...
 ```json
 {
   "scripts": {
-    "help": "npm run script-help",
-    ...
+    "help": "npm run script-help"
   }
 }
 ```
@@ -35,7 +34,7 @@ and add a help alias to your `package.json` scripts...
 $ npm run help
 ```
 
-#### Command help for a specic script
+#### Command help for a specific script
 
 ```console
 $ npm run help test
