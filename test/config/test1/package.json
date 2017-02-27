@@ -1,0 +1,68 @@
+{
+  "name": "mock-config",
+  "version": "1.0.0",
+  "description": "Mock configuration for testing",
+  "keywords": [
+    "mock"
+  ],
+  "author": "Tester",
+  "scriptHelp": {
+    "help-message": "My help message... This should be really helpful!",
+    "test": {
+      "name": "Test",
+      "description": "Run .spec files in Karma",
+      "usage": [
+        {
+          "use": "npm run test",
+          "note": "Basic usage..."
+        },
+        "npm run test -- --folder nav",
+        "npm run test -- --folder nav"
+      ],
+      "options": [
+        {
+          "option": "--[folder | f] FOLDER_PATH",
+          "note": "Restrict spec's to those within the FOLDER_PATH. The path should be relative to the repository root (where you commonly run the npm command) or to \"./src\"."
+        },
+        {
+          "option": "--[noBail | nb]",
+          "note": "Karma will not bail (halt watch) when there is a compilation error."
+        }
+      ],
+      "examples": [
+        {
+          "example": "npm run test nav",
+          "note": "Tests will only be run for *.spec within the nav folder."
+        }
+      ],
+      "tips": [
+        "First tip.",
+        "Second tip."
+      ]
+    }
+  },
+  "scripts": {
+    "build": "@echo running build",
+    "build:core": "@echo running build core",
+    "test": "@echo running test"
+  },
+  "dependencies": {
+    "@fake/common": "2.4.5"
+  },
+  "devDependencies": {
+    "@fake/lib": "^0.9.35"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benfeely/script-help/issues"
+  },
+  "homepage": "https://github.com/benfeely/script-help#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benfeely/script-help.git"
+  },
+  "engines": {
+    "node": ">= 6.9.0",
+    "npm": ">= 3"
+  }
+}

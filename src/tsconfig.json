@@ -1,0 +1,18 @@
+{
+    "version": "1.8.10",
+    "compilerOptions": {
+        "declaration": true,
+        "experimentalDecorators": true,
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "noImplicitAny": true,
+        "outDir": "../lib/",
+        "removeComments": false,
+        "sourceMap": false,
+        "strictNullChecks": false,
+        "target": "es5"
+    },
+    "exclude": [
+        "node_modules"
+    ]
+}

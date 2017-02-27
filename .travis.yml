@@ -1,0 +1,6 @@
+language: node_js
+script: npm run compile
+after_success:
+  - npm run coverage
+node_js:
+  - "4.0.0"
