@@ -56,6 +56,21 @@ describe("Runner", () => {
             new Runner({}, <any>outputStream).run(cb);
 
             cb.should.have.been.calledWith(ExitStatus.Failure);
+
+            (<any>Help.prototype.write).restore();
+        });
+
+        it(`should log to console and exit with success`, () => {
+            const runnerOptions: IRunnerOptions = {
+                key: "test"
+            };
+            const cb = sinon.spy();
+
+            // Start the instance with the supplied mocks and stub.
+            new Runner(runnerOptions, <any>outputStream).run(cb);
+
+            outputStream.messages.should.have.lengthOf(6);
+            cb.should.have.been.calledWith(ExitStatus.Success);
         });
     });
 });

@@ -7,6 +7,7 @@
   ],
   "author": "Tester",
   "scriptHelp": {
+    "help-message": "My help message... This should be really helpful!",
     "test": {
       "name": "Test",
       "description": "Run .spec files in Karma",
