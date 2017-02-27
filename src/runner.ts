@@ -1,4 +1,5 @@
 import { Package } from "./package";
+import { Help } from "./help";
 
 export interface IRunnerOptions {
     /**
@@ -24,10 +25,16 @@ export class Runner {
 
         try {
             this.outputStream.write("Starting script help...");
-            const pkg = new Package();
-            const scriptKeys = pkg.getScriptKeys(this.options.filter, this.options.key);
 
-            console.log("Script Keys: ", JSON.stringify(scriptKeys));
+            const pkg = new Package();
+
+            // Optionally set up the keys that will be included in the help.
+            if (this.options.filter || this.options.key) {
+                pkg.setScriptKeys(this.options.filter, this.options.key);
+            }
+
+            new Help(pkg, this.outputStream).write();
+
         } catch (error) {
             console.error(error.message);
             onComplete(1);

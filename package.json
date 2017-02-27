@@ -34,7 +34,7 @@
     "clean:test": "rimraf build",
     "compile": "npm-run-all -p compile:core compile:test -s",
     "compile:core": "tsc -p src",
-    "compile:test": "tsc -p test && copyfiles test/config/*.json build",
+    "compile:test": "tsc -p test && copyfiles test/config/**/*.json build",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "docs": "npm run build && documentation readme lib/script-help.js --github --section API",
     "lint": "npm-run-all -p lint:core lint:test lint:from-bin",
@@ -48,6 +48,7 @@
     "verify": "npm-run-all clean compile lint test docs",
     "webpack": "webpack -p"
   },
+  "scriptHelp": {},
   "dependencies": {
     "chalk": "^1.1.3",
     "copy": "^0.3.0",

@@ -1,0 +1,33 @@
+{
+  "name": "mock-config",
+  "version": "1.0.0",
+  "description": "Mock configuration for testing",
+  "keywords": [
+    "mock"
+  ],
+  "author": "Tester",
+  "scripts": {
+    "build": "@echo running build",
+    "build:core": "@echo running build core",
+    "test": "@echo running test"
+  },
+  "dependencies": {
+    "@fake/common": "2.4.5"
+  },
+  "devDependencies": {
+    "@fake/lib": "^0.9.35"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/benfeely/script-help/issues"
+  },
+  "homepage": "https://github.com/benfeely/script-help#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benfeely/script-help.git"
+  },
+  "engines": {
+    "node": ">= 6.9.0",
+    "npm": ">= 3"
+  }
+}
