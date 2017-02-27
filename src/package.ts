@@ -23,6 +23,7 @@ export class Package implements IPackageJson {
     public name: string;
     public scripts: { [script: string]: string; };
     private _scriptKeys: string[];
+    private _isFiltered: boolean;
     public scriptHelp: { [script: string]: IScriptHelp | string; };
     public version: string;
 
@@ -52,7 +53,13 @@ export class Package implements IPackageJson {
         return this._scriptKeys;
     }
 
+    public get isFiltered(): boolean {
+        return this._isFiltered;
+    }
+
     public setScriptKeys(filter?: string, key?: string): string[] {
+        this._isFiltered = false;
+
         // Determine if a valid single key was requested.
         if (key) {
             // Ensure the key exists.
@@ -61,12 +68,14 @@ export class Package implements IPackageJson {
             }
 
             this._scriptKeys = [key];
+            this._isFiltered = true;
         } else {
             // Return an array of [filtered] keys.
             this._scriptKeys = Object.keys(this.scripts);
             if (filter) {
                 const regExp = new RegExp(filter);
                 this._scriptKeys = this._scriptKeys.filter(key => regExp.test(key));
+                this._isFiltered = true;
             }
         }
 

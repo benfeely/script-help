@@ -26,8 +26,6 @@ export class Runner {
         }
 
         try {
-            this.outputStream.write("Starting script help...");
-
             const pkg = new Package();
 
             // Optionally set up the keys that will be included in the help.

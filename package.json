@@ -45,12 +45,16 @@
     "test": "npm run compile && mocha \"build/test/**/*.spec.js\" build/test/assert.js",
     "test:cover": "npm run compile && nyc mocha \"build/test/**/*.spec.js\" build/test/assert.js",
     "test:travis": "npm run build && npm run lint && istanbul cover node_modules/tape/bin/tape test/*.js",
+    "test:out": "npm run compile:core && node ./bin/script-help",
     "verify": "npm-run-all clean compile lint test docs",
     "webpack": "webpack -p"
   },
-  "scriptHelp": {},
+  "scriptHelp": {
+    "help-message": "My help message... This should be really helpful!"
+  },
   "dependencies": {
     "chalk": "^1.1.3",
+    "columnify": "^1.5.4",
     "findup-sync": "~0.3.0",
     "yargs": "^6.6.0"
   },
