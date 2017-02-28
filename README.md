@@ -3,7 +3,7 @@
 Outputs entire or filtered npm scripts list with customizable documentation to the console.  Documentation structure is based on conventions that have been used for decades in help messages and man pages as collected at <http://docopt.org>.
 
 [![Code Climate](https://codeclimate.com/github/benfeely/script-help/badges/gpa.svg)](https://codeclimate.com/github/benfeely/script-help)
-[![Build Status](https://travis-ci.org/benfeely/script-help.svg?branch=master)](https://travis-ci.org/benfeely/script-help)
+[![Linux Build](https://travis-ci.org/benfeely/script-help.svg?branch=master)](https://travis-ci.org/benfeely/script-help)
 [![Coverage Status](https://coveralls.io/repos/github/benfeely/script-help/badge.svg?branch=master)](https://coveralls.io/github/benfeely/script-help?branch=master)
 [![dependencies Status](https://david-dm.org/benfeely/script-help/status.svg)](https://david-dm.org/benfeely/script-help)
 [![devDependencies Status](https://david-dm.org/benfeely/script-help/dev-status.svg)](https://david-dm.org/benfeely/script-help?type=dev)
