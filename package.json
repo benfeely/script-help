@@ -21,8 +21,8 @@
   "bin": {
     "script-help": "./bin/script-help"
   },
-  "main": "lib/script-help.js",
-  "typings": "lib/script-help.d.ts",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
   "files": [
     "bin/",
     "lib/"
@@ -36,7 +36,7 @@
     "compile:core": "tsc -p src",
     "compile:test": "tsc -p test && copyfiles test/config/**/*.json build",
     "coveralls": "nyc mocha \"build/test/**/*.spec.js\" build/test/assert.js && nyc report --reporter=text-lcov | coveralls",
-    "docs": "npm run build && documentation readme lib/script-help.js --github --section API",
+    "docs": "npm run build && documentation readme lib/index.js --github --section API",
     "help": "npm run compile:core && node ./bin/script-help",
     "lint": "npm-run-all -p lint:core lint:test",
     "lint:core": "tslint \"src/**/*.ts\"",
