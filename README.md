@@ -4,8 +4,9 @@ Outputs entire or filtered npm scripts list with customizable documentation to t
 
 [![Build Status](https://travis-ci.org/benfeely/script-help.svg?branch=master)](https://travis-ci.org/benfeely/script-help)
 [![Coverage Status](https://coveralls.io/repos/github/benfeely/script-help/badge.svg?branch=master)](https://coveralls.io/github/benfeely/script-help?branch=master)
-
+[![dependencies Status](https://david-dm.org/benfeely/script-help/status.svg)](https://david-dm.org/benfeely/script-help)
 ![screenshot](./docs/screen1.png)
+[![devDependencies Status](https://david-dm.org/benfeely/script-help/dev-status.svg)](https://david-dm.org/benfeely/script-help?type=dev)
 
 ## Why
 
