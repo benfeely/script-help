@@ -28,7 +28,6 @@ module.exports = function(shell, npm, git) {
 
         git("push");
         git("push","--tags");
-        console.log("Published!");
     }
     else
         shell.exit(1, pkg.name + " is not an existing npm package");

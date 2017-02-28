@@ -9,7 +9,7 @@ module.exports = {
         filename: 'script-help.umd.js'
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js']
     },
     plugins: [
         new webpack.optimize.UglifyJsPlugin({
