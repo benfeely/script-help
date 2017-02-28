@@ -35,7 +35,7 @@
     "compile": "npm-run-all -p compile:core compile:test -s",
     "compile:core": "tsc -p src",
     "compile:test": "tsc -p test && copyfiles test/config/**/*.json build",
-    "coverage": "nyc report --reporter=text-lcov | coveralls",
+    "coveralls": "nyc mocha \"build/test/**/*.spec.js\" build/test/assert.js && nyc report --reporter=text-lcov | coveralls",
     "docs": "npm run build && documentation readme lib/script-help.js --github --section API",
     "help": "npm run compile:core && node ./bin/script-help",
     "lint": "npm-run-all -p lint:core lint:test lint:from-bin",
@@ -45,7 +45,6 @@
     "prepublish": "npm run build && npm run docs",
     "test": "npm run compile && mocha \"build/test/**/*.spec.js\" build/test/assert.js",
     "test:cover": "npm run compile && nyc mocha \"build/test/**/*.spec.js\" build/test/assert.js",
-    "test:travis": "npm run build && npm run lint && istanbul cover node_modules/tape/bin/tape test/*.js",
     "verify": "npm-run-all clean compile lint test docs",
     "webpack": "webpack -p"
   },
