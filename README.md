@@ -2,6 +2,8 @@
 
 Outputs entire or filtered npm scripts list with customizable documentation to the console.  Documentation structure is based on conventions that have been used for decades in help messages and man pages as collected at <http://docopt.org>.
 
+[![Coverage Status](https://coveralls.io/repos/github/benfeely/script-help/badge.svg?branch=master)](https://coveralls.io/github/benfeely/script-help?branch=master)
+
 ![screenshot](./docs/screen1.png)
 
 ## Why
