@@ -1,6 +1,6 @@
 {
   "name": "script-help",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Outputs entire or filtered npm scripts list with customizable documentation to the console (inspired by http://docopt.org).",
   "author": "Ben Feely <http://benfeely.com>",
   "license": "MIT",
