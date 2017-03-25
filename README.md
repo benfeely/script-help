@@ -1,6 +1,6 @@
 # script-help
 
-Outputs entire or filtered npm scripts list with customizable documentation to the console.  Documentation structure is based on conventions that have been used for decades in help messages and man pages as collected at <http://docopt.org>.
+Outputs entire or filtered list of npm scripts from "package.json" with customizable documentation to the console.  Documentation structure is based on conventions that have been used for decades in help messages and man pages as collected at <http://docopt.org>.
 
 [![Code Climate](https://codeclimate.com/github/benfeely/script-help/badges/gpa.svg)](https://codeclimate.com/github/benfeely/script-help)
 [![Build Status](https://travis-ci.org/benfeely/script-help.svg?branch=master)](https://travis-ci.org/benfeely/script-help)
